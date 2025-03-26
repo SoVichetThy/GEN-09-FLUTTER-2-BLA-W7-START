@@ -17,6 +17,7 @@ void main() {
   LocationsService.initialize(MockLocationsRepository());
   RidesService.initialize(MockRidesRepository());
 
+
   // 2- Run the UI
   runApp(const MyApp());
 }
