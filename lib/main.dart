@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:week_3_blabla_project/provider/ride_pref_provider.dart';
 import 'repository/mock/mock_locations_repository.dart';
 import 'repository/mock/mock_rides_repository.dart';
 import 'service/locations_service.dart';
@@ -11,7 +13,7 @@ import 'ui/theme/theme.dart';
 
 void main() {
   // 1 - Initialize the services
-  RidePrefService.initialize(MockRidePreferencesRepository());
+  //RidePrefService.initialize(MockRidePreferencesRepository());
   LocationsService.initialize(MockLocationsRepository());
   RidesService.initialize(MockRidesRepository());
 
@@ -24,10 +26,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: appTheme,
-      home: Scaffold(body: RidePrefScreen()),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => RidePrefProvider(),
+        ),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: appTheme,
+        home: Scaffold(body: RidePrefScreen()),
+      ),
     );
   }
 }
